@@ -1,17 +1,14 @@
-
-
-
 function Gameboard() {
-    bored = []
+    let board = []
 
     let rows = 3;
     let columns = 3
 
     for (let i = 0; i < rows; i++) {
 
-        bored[i] = [];
+        board[i] = [];
         for (let j = 0; j < columns; j++) {
-            bored[i].push(cell());
+            board[i].push(cell());
         }
     }
 
@@ -20,12 +17,12 @@ function Gameboard() {
 
 
     }
-    const clearBored = () => {
+    const clearBoard = () => {
 
 
     }
-    const getBored = () => { return bored }
-    return { getBored, clearBored }
+    const getBoard = () => { return board }
+    return { getBoard, clearBoard }
 
 }
 
@@ -37,7 +34,7 @@ function cell() {
     }
 
     const getValue = () => {
-        return value;
+        return stamp;
     }
     return { addStamp, getValue };
 }
@@ -46,7 +43,7 @@ function cell() {
 function gameController() {
     const x = "x";
     const o = "o";
-    const bored = Gameboard();
+    const board = Gameboard();
 
     const player = [{ name: x, stamp: "x" }, { name: o, stamp: o }];
 
@@ -65,23 +62,33 @@ function gameController() {
 
     const playRound = () => {
 
-
         switchPlayerTurn();
     }
 
-    return { getActivePlayer, playRound };
+    return { getActivePlayer, playRound, getBoard: board.getBoard };
 
 }
 
 function displayController() {
     const game = gameController();
-    const bored = document.querySelector(".container")
+    const container = document.querySelector(".container")
     const turn = document.querySelector("#turn");
-
     turn.textContent = game.getActivePlayer().stamp;
+    const board = game.getBoard();
 
+
+    board.forEach((row) => {
+        row.forEach((cell) => {
+            const div = document.createElement("div");
+            div.addEventListener("click", () => {
+
+                if (div.textContent) return;
+                div.textContent = game.getActivePlayer().stamp
+                game.playRound();
+                turn.textContent = game.getActivePlayer().stamp;
+            })
+            container.appendChild(div)
+        })
+    });
 }
-
-const gamev = Gameboard()
-
-console.log(gamev.getBored())
+displayController()
