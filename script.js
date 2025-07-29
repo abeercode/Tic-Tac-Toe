@@ -14,8 +14,6 @@ function Gameboard() {
 
     const createDivs = () => {
 
-
-
     }
     const clearBoard = () => {
 
@@ -28,7 +26,7 @@ function Gameboard() {
 
 function cell() {
 
-    let stamp = 0;
+    let stamp;
     const addStamp = (player) => {
         stamp = player;
     }
@@ -40,21 +38,15 @@ function cell() {
 }
 
 function gameController() {
-    const x = "x";
-    const o = "o";
+
     const board = Gameboard();
 
-    const player = [{ name: x, stamp: "x" }, { name: o, stamp: o }];
+    const player = [{ stamp: "x" }, { stamp: "o" }];
 
     let activePlayer = player[0];
 
     const switchPlayerTurn = () => {
-        if (activePlayer === player[0]) {
-            activePlayer = player[1]
-        }
-        else {
-            activePlayer = player[0];
-        }
+        activePlayer = player[0] === activePlayer ? player[1] : player[0]
     }
 
     const getActivePlayer = () => activePlayer;
@@ -95,12 +87,12 @@ function displayController() {
                 if ((row[j].getStamp() === row[j + 1].getStamp()) && (row[j].getStamp() === row[j + 2].getStamp())) {
                     winner = row[j].getStamp()
                     winnerDiv.textContent = winner + " yay"
-                    return
+                    // return
                 }
                 if (row[j].getStamp() === board[i + 1][j].getStamp() && board[i + 1][j].getStamp() === board[i + 2][j].getStamp()) {
                     winner = row[j].getStamp()
                     winnerDiv.textContent = winner + " yay"
-                    return
+                    // return
                 }
             }
         }
