@@ -1,3 +1,6 @@
+
+
+
 function Gameboard() {
     bored = []
 
@@ -11,8 +14,18 @@ function Gameboard() {
             bored[i].push(cell());
         }
     }
+
+    const createDivs = () => {
+
+
+
+    }
+    const clearBored = () => {
+
+
+    }
     const getBored = () => { return bored }
-    return { getBored }
+    return { getBored, clearBored }
 
 }
 
@@ -48,15 +61,24 @@ function gameController() {
         }
     }
 
-    const getActivePlayer= ()=> activePlayer;
+    const getActivePlayer = () => activePlayer;
 
-    const playRound= ()=>{
+    const playRound = () => {
 
 
         switchPlayerTurn();
     }
 
-    return {getActivePlayer , playRound};
+    return { getActivePlayer, playRound };
+
+}
+
+function displayController() {
+    const game = gameController();
+    const bored = document.querySelector(".container")
+    const turn = document.querySelector("#turn");
+
+    turn.textContent = game.getActivePlayer().stamp;
 
 }
 
